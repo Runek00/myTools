@@ -1,0 +1,6 @@
+commitOutput:f'{name}.git/{c.hexsha}'
+position: 960,540
+repo:repo_name::C:/Users/Me/Desktop/repo1
+key:u:user1:2:user
+key:q:admin1::admin11
+key:w:admin2::admin12
