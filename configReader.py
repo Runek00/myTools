@@ -1,25 +1,26 @@
-delay = [0.25]
+delay = 0.25
 logins = {}
 waitTimes = {}
 repos = {}
-position = [(0,0)]
-commitOutput = ["f'{name}.git/{c.hexsha}'"]
-read = False
+position = (0,0)
+commitOutput = "f'{name}.git/{c.hexsha}'"
 
 def readConfig():
-    read = True
     with open('config.txt', 'r') as conf:
         for line in conf.readlines():
             if line.startswith('position:'):
                 s = line.split('position:', 1)[1].strip('\n')
                 ss = s.split(',')
-                position[0] = int(ss[0]), int(ss[1])
+                global position
+                position = int(ss[0]), int(ss[1])
             elif line.startswith('delay:'):
                 s = line.split('delay:',1)[1]
-                delay[0] = float(s)
+                global delay
+                delay = float(s)
             elif line.startswith('commitOutput:'):
                 s = line.split('commitOutput:', 1)[1].strip('\n')
-                commitOutput[0] = s
+                global commitOutput
+                commitOutput = s
             elif line.startswith('repo:'):
                 s = line.split('repo:',1)[1].strip('\n')
                 ss = s.split('::')
@@ -62,16 +63,17 @@ def setLoginPos(x, y):
         lines.append(f'\nposition: {x},{y}')
     with open('config.txt', 'w') as conf:
         conf.writelines(lines)
-    position[0] = x, y
+    global position
+    position = x, y
 
 def getDelay():
-    return delay[0]
+    return delay
 
 def getPosition():
-    return position[0]
+    return position
 
 def getCommitOutput():
-    return commitOutput[0]
+    return commitOutput
 
 def getRepos():
     return repos
