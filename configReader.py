@@ -1,9 +1,16 @@
-delay = 0.25
-logins = {}
-waitTimes = {}
-repos = {}
-position = (0,0)
-commitOutput = "f'{name}.git/{c.hexsha}'"
+def init():
+    global delay
+    global logins
+    global waitTimes
+    global repos
+    global position
+    global commitOutput
+    delay = 0.25
+    logins = {}
+    waitTimes = {}
+    repos = {}
+    position = (0,0)
+    commitOutput = "f'{name}.git/{c.hexsha}'"
 
 def readConfig():
     with open('config.txt', 'r') as conf:
@@ -29,6 +36,7 @@ def readConfig():
                 branch = 'master'
                 if len(ss) > 2:
                     branch = ss[2]
+                global repos
                 repos[addr] = name
             elif line.startswith('key:'):
                 s = line.split('key:',1)[1].strip('\n')
@@ -41,9 +49,11 @@ def readConfig():
                 waitTime = 0.0
                 if len(ss[2]) > 0:
                     waitTime = float(ss[2])
+                global logins
                 if key in logins.keys() or key == 'p':
                     continue
                 logins[key] = (login, password)
+                global waitTimes
                 waitTimes[key] = waitTime
 
 
