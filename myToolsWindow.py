@@ -15,7 +15,6 @@ def commitsFromInput():
 def commits(taskId):
     toClipboard(getCommits(taskId))
     
-
 def cFromCols():
     global cols
     columns = cols.get(1.0, 'end')
@@ -42,14 +41,13 @@ def setLoginPosition(e = None):
 def main():
     cr.init()
     cr.readConfig()
+    
     global root
     root = tk.Tk()
     for k in cr.getKeys():
         root.bind(f'<{k}>', lt.appLogin)
         root.bind(f'<Control-{k}>', lt.appLoginHere)
     root.bind('<s>', setLoginPosition)
-
-
 
     tk.Label(root, text="Nr zadania:").grid(row=0)
     global nr_zad
@@ -87,7 +85,7 @@ def main():
     loginKeys = ''
     for key in cr.getKeys():
         l, p = cr.getLogin(key)
-        loginKeys += f'{key} - logowanie na {l}\n'
+        loginKeys += f'    {key} - logowanie na {l}\n'
         
     tk.Label(root,
              text='''INSTRUKCJA
@@ -107,11 +105,10 @@ def main():
     5. Skróty do szybkiego logowania
     s - ustawianie i zapisanie pozycji
     (tam się przenosi myszka przed akcją)
-    ''' + loginKeys + '''
+''' + loginKeys + '''
 
     6. Wciśnięcie ctrl + litera pomija przenoszenie myszki''',
              justify='left').grid(row = 6, columnspan = 3)
-
 
     root.mainloop()
 

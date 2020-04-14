@@ -7,7 +7,7 @@ def onEachRepo(func):
     def wrapper(*args, **kwargs):
         outstr = ''
         with ThreadPoolExecutor() as executor:
-            results = [executor.submit(func, Repo(adr), name, *args, **kwargs) for adr, name in cr.getRepos().items()]  
+            results = [executor.submit(func, Repo(adr), name, *args, **kwargs) for adr, name in cr.repos.items()]  
             for r in results:
                 outstr += r.result()
         print('\ndone')
@@ -21,7 +21,7 @@ def getCommits(repo, name, taskId, commits_back=50):
         lambda c: (str(taskId) in c.message),
         list(repo.iter_commits(repo.active_branch, max_count=commits_back)))
     for c in fffc:
-        out = eval(cr.getCommitOutput())
+        out = eval(cr.commitOutput)
         outstr += out + '\n'
         print(out)
     return outstr

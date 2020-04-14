@@ -22,34 +22,33 @@ def readConfig():
     global readingDict
     with open('config.txt', 'r') as conf:
         for line in conf.readlines():
-            readingDict.get(line.split(':', 1)[0], lambda x: None)(line)
+            l = line.strip('\n').split(':', 1)
+            if len(l) < 2:
+                continue
+            readingDict.get(l[0], lambda x: None)(l[1])
 
-def readPosition(line):
-    s = line.split('position:', 1)[1].strip('\n')
+def readPosition(s):
     ss = s.split(',')
     global position
     position = int(ss[0]), int(ss[1])
 
-def readDelay(line):
-    s = line.split('delay:',1)[1].strip('\n')
+def readDelay(s):
     global delay
     delay = float(s)
 
-def readCommitOutput(line):
-    s = line.split('commitOutput:', 1)[1].strip('\n')
+def readCommitOutput(s):
     global commitOutput
     commitOutput = s
 
-def readRepo(line):
-    s = line.split('repo:',1)[1].strip('\n')
+def readRepo(s):
     ss = s.split('::')
     name = ss[0]
     addr = ss[1]
     global repos
     repos[addr] = name
 
-def readKey(line):
-    s = line.split('key:',1)[1].strip('\n')
+def readKey(s):
+
     ss = s.split(':')
     if len(ss) < 4:
         return
@@ -84,18 +83,6 @@ def setLoginPos(x, y):
         conf.writelines(lines)
     global position
     position = x, y
-
-def getDelay():
-    return delay
-
-def getPosition():
-    return position
-
-def getCommitOutput():
-    return commitOutput
-
-def getRepos():
-    return repos
 
 def getLogin(key):
     return logins[key]
