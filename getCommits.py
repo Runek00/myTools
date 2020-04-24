@@ -2,8 +2,10 @@ from git import Repo
 from tkinter import Tk
 from concurrent.futures import ThreadPoolExecutor
 import configReader as cr
+from functools import wraps
 
 def onEachRepo(func):
+    @wraps(func)
     def wrapper(*args, **kwargs):
         outstr = ''
         with ThreadPoolExecutor() as executor:

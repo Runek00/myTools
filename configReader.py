@@ -41,26 +41,21 @@ def readCommitOutput(s):
     commitOutput = s
 
 def readRepo(s):
-    ss = s.split('::')
-    name = ss[0]
-    addr = ss[1]
+    name, addr = s.split('::', 1)
     global repos
     repos[addr] = name
 
 def readKey(s):
-
     ss = s.split(':')
-    if len(ss) < 4:
+    if len(ss) != 4:
         return
-    key = ss[0]
-    login = ss[1]
-    password = ss[3]
-    waitTime = 0.0
-    if len(ss[2]) > 0:
-        waitTime = float(ss[2])
+    key, login, wt, password = ss
     global logins
-    if key in logins.keys() or key == 'p':
+    if key == 'p' or key in logins.keys():
         return
+    waitTime = 0.0
+    if len(wt) > 0:
+        waitTime = float(wt)
     logins[key] = (login, password)
     global waitTimes
     waitTimes[key] = waitTime
