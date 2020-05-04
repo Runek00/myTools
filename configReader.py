@@ -43,7 +43,7 @@ def readCommitOutput(s):
 def readRepo(s):
     name, addr = s.split('::', 1)
     global repos
-    repos[addr] = name
+    repos[addr.replace('\\', '/')] = name
 
 def readKey(s):
     ss = s.split(':')
