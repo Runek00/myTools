@@ -53,9 +53,7 @@ def readKey(s):
     global logins
     if key == 'p' or key in logins.keys():
         return
-    waitTime = 0.0
-    if len(wt) > 0:
-        waitTime = float(wt)
+    waitTime = float(wt) if len(wt) > 0 else 0.0
     logins[key] = (login, password)
     global waitTimes
     waitTimes[key] = waitTime
