@@ -3,31 +3,31 @@ import configReader as cr
 import tkinter as tk
 from getCommits import getCommits, pullAll
 from columnTools import defCs, configureColumns
+from typing import Optional
 
-
-def commitsFromInput():
+def commitsFromInput() -> None:
     global nr_zad
     taskId = nr_zad.get()
     if taskId.strip() == '':
         return
     commits(taskId)
 
-def commits(taskId: str):
+def commits(taskId: str) -> None:
     toClipboard(getCommits(taskId))
     
-def cFromCols():
+def cFromCols() -> None:
     global cols
     columns = cols.get(1.0, 'end')
     s = defCs(columns)
     toClipboard(s)
 
-def confFromCols():
+def confFromCols() -> None:
     global cols
     columns = cols.get(1.0, 'end')
     s = configureColumns(columns)
     toClipboard(s)
 
-def toClipboard(x: str):
+def toClipboard(x: str) -> None:
     global root
     root.withdraw()
     root.clipboard_clear()
@@ -35,10 +35,10 @@ def toClipboard(x: str):
     root.update()
     root.deiconify()
 
-def setLoginPosition(e = None):
+def setLoginPosition(e: Optional[tk.Event] = None) -> None:
     cr.setLoginPos(e.x_root, e.y_root)
 
-def main():
+def main() -> None:
     cr.init()
     cr.readConfig()
     

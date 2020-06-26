@@ -1,11 +1,11 @@
 from typing import Optional
 
-def quotes(x: str):
+def quotes(x: str) -> None:
     xs = x.split('\n')
     for s in xs:
         print('"'+s+'",')
 
-def singleQuotes(x: str):
+def singleQuotes(x: str) -> None:
     xs = x.split('\n')
     for s in xs:
         print("'"+s+"',")
@@ -22,25 +22,25 @@ def outQuotes(x: str, pref: Optional[str] = '', qType: Optional[str] = '"', line
     else:
         return out[:-1]
 
-def quotesWithPref(x: str, pref: Optional[str] = ''):
+def quotesWithPref(x: str, pref: Optional[str] = '') -> None:
     xs = x.split('\n')
     for s in xs:
         print(f'"{pref}{s}",')
 
-def prefAndComma(x: str, pref: Optional[str] = ''):
+def prefAndComma(x: str, pref: Optional[str] = '') -> None:
     xs = x.split('\n')
     for s in xs:
         print(f'{pref}{s},')
 
-def defCols(src: str, tabAlias: Optional[str] = '', isColAlias: Optional[bool] = True):
+def defCols(src: str, tabAlias: Optional[str] = '', isColAlias: Optional[bool] = True) -> None:
     if tabAlias != '':
         tabAlias = tabAlias + '.'
     toColumns(outQuotes(src, tabAlias), isColAlias)
 
-def toColumns(src: str, isColAlias: Optional[bool] = True):
+def toColumns(src: str, isColAlias: Optional[bool] = True) -> None:
     toFunc(src, 'aColumn(', '),', isColAlias)
 
-def toCs(src:str, isColAlias: Optional[bool] = True):
+def toCs(src:str, isColAlias: Optional[bool] = True) -> None:
     toFunc(src, '.c(', ')', isColAlias)
 
 def toFunc(src: str, pref: str, suf: str, isColAlias: Optional[bool] = True, hideId: Optional[bool] = False) -> str:

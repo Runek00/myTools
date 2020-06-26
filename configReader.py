@@ -1,6 +1,6 @@
 from typing import List
 
-def init():
+def init() -> None:
     global delay
     global logins
     global waitTimes
@@ -20,7 +20,7 @@ def init():
                    'repo' : readRepo,
                    'key' : readKey}
 
-def readConfig():
+def readConfig() -> None:
     global readingDict
     with open('config.txt', 'r') as conf:
         for line in conf.readlines():
@@ -29,25 +29,25 @@ def readConfig():
                 continue
             readingDict.get(l[0], lambda x: None)(l[1])
 
-def readPosition(s: str):
+def readPosition(s: str) -> None:
     ss = s.split(',')
     global position
     position = int(ss[0]), int(ss[1])
 
-def readDelay(s: str):
+def readDelay(s: str) -> None:
     global delay
     delay = float(s)
 
-def readCommitOutput(s: str):
+def readCommitOutput(s: str) -> None:
     global commitOutput
     commitOutput = s
 
-def readRepo(s: str):
+def readRepo(s: str) -> None:
     name, addr = s.split('::', 1)
     global repos
     repos[addr.replace('\\', '/')] = name
 
-def readKey(s: str):
+def readKey(s: str) -> None:
     ss = s.split(':')
     if len(ss) != 4:
         return
@@ -60,7 +60,7 @@ def readKey(s: str):
     global waitTimes
     waitTimes[key] = waitTime
 
-def setLoginPos(x: int, y: int):
+def setLoginPos(x: int, y: int) -> None:
     with open('config.txt', 'r') as conf:
         lines = conf.readlines()
     if len(lines) > 0:
