@@ -2,7 +2,7 @@ import pyautogui
 from time import sleep
 import configReader as cr
 
-def mainLogin(key):
+def mainLogin(key: str):
     login, password = cr.getLogin(key)
     sleep(cr.delay)
     pyautogui.click()

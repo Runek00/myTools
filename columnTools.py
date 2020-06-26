@@ -1,14 +1,16 @@
-def quotes(x):
+from typing import Optional
+
+def quotes(x: str):
     xs = x.split('\n')
     for s in xs:
         print('"'+s+'",')
 
-def singleQuotes(x):
+def singleQuotes(x: str):
     xs = x.split('\n')
     for s in xs:
         print("'"+s+"',")
     
-def outQuotes(x, pref = '', qType = '"', lines = True):
+def outQuotes(x: str, pref: Optional[str] = '', qType: Optional[str] = '"', lines:Optional[bool] = True) -> str:
     out = ''
     xs = x.split('\n')
     for s in xs:
@@ -20,28 +22,28 @@ def outQuotes(x, pref = '', qType = '"', lines = True):
     else:
         return out[:-1]
 
-def quotesWithPref(x, pref = ''):
+def quotesWithPref(x: str, pref: Optional[str] = ''):
     xs = x.split('\n')
     for s in xs:
         print(f'"{pref}{s}",')
 
-def prefAndComma(x, pref = ''):
+def prefAndComma(x: str, pref: Optional[str] = ''):
     xs = x.split('\n')
     for s in xs:
         print(f'{pref}{s},')
 
-def defCols(src, tabAlias='', isColAlias = True):
+def defCols(src: str, tabAlias: Optional[str] = '', isColAlias: Optional[bool] = True):
     if tabAlias != '':
         tabAlias = tabAlias + '.'
     toColumns(outQuotes(src, tabAlias), isColAlias)
 
-def toColumns(src, isColAlias = True):
+def toColumns(src: str, isColAlias: Optional[bool] = True):
     toFunc(src, 'aColumn(', '),', isColAlias)
 
-def toCs(src, isColAlias = True):
+def toCs(src:str, isColAlias: Optional[bool] = True):
     toFunc(src, '.c(', ')', isColAlias)
 
-def toFunc(src, pref, suf, isColAlias = True, hideId = False):
+def toFunc(src: str, pref: str, suf: str, isColAlias: Optional[bool] = True, hideId: Optional[bool] = False) -> str:
     ss = src.split(',\n')
     outstr =''
     for s in ss:
@@ -59,11 +61,11 @@ def toFunc(src, pref, suf, isColAlias = True, hideId = False):
         outstr += out + '\n'
     return outstr
 
-def defCs(src, tabAlias = '', isColAlias = False):
+def defCs(src: str, tabAlias: Optional[str] = '', isColAlias: Optional[bool] = False) -> str:
     if tabAlias != '':
         tabAlias = tabAlias + '.'
     return toFunc(outQuotes(src, tabAlias), '.c(', ')', isColAlias)
 
-def configureColumns(src, width = '100', hideId = True):
+def configureColumns(src: str, width: Optional[str] = '100', hideId: Optional[bool] = True) -> str:
     suf = ', "' + width + 'px");'
     return toFunc(outQuotes(src), 'configure(', suf, hideId = hideId)

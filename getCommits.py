@@ -3,10 +3,11 @@ from tkinter import Tk
 from concurrent.futures import ThreadPoolExecutor
 import configReader as cr
 from functools import wraps
+from typing import Callable, Optional
 
-def onEachRepo(func):
+def onEachRepo(func: Callable[..., str]) -> Callable[..., str]:
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> str:
         outstr = ''
         with ThreadPoolExecutor() as executor:
             results = [executor.submit(func, Repo(adr), name, *args, **kwargs) for adr, name in cr.repos.items()]  
@@ -17,7 +18,7 @@ def onEachRepo(func):
     return wrapper
 
 @onEachRepo
-def getCommits(repo, name, taskId, commits_back=50):
+def getCommits(repo: Repo, name: str, taskId: int, commits_back: Optional[int] = 50) -> str:
     outstr = ''
     fffc = filter(
         lambda c: (str(taskId) in c.message),
@@ -29,7 +30,7 @@ def getCommits(repo, name, taskId, commits_back=50):
     return outstr
 
 @onEachRepo
-def pullAll(repo, name):
+def pullAll(repo: Repo, name: str) -> str:
     outstr = ''
     print(f'{name}\n')
     remote = repo.remote()

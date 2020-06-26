@@ -1,3 +1,5 @@
+from typing import List
+
 def init():
     global delay
     global logins
@@ -27,25 +29,25 @@ def readConfig():
                 continue
             readingDict.get(l[0], lambda x: None)(l[1])
 
-def readPosition(s):
+def readPosition(s: str):
     ss = s.split(',')
     global position
     position = int(ss[0]), int(ss[1])
 
-def readDelay(s):
+def readDelay(s: str):
     global delay
     delay = float(s)
 
-def readCommitOutput(s):
+def readCommitOutput(s: str):
     global commitOutput
     commitOutput = s
 
-def readRepo(s):
+def readRepo(s: str):
     name, addr = s.split('::', 1)
     global repos
     repos[addr.replace('\\', '/')] = name
 
-def readKey(s):
+def readKey(s: str):
     ss = s.split(':')
     if len(ss) != 4:
         return
@@ -58,7 +60,7 @@ def readKey(s):
     global waitTimes
     waitTimes[key] = waitTime
 
-def setLoginPos(x, y):
+def setLoginPos(x: int, y: int):
     with open('config.txt', 'r') as conf:
         lines = conf.readlines()
     if len(lines) > 0:
@@ -77,11 +79,11 @@ def setLoginPos(x, y):
     global position
     position = x, y
 
-def getLogin(key):
+def getLogin(key: str) -> str:
     return logins[key]
 
-def getWaitTime(key):
+def getWaitTime(key: str) -> float:
     return waitTimes[key]
 
-def getKeys():
+def getKeys() -> List[str]:
     return logins.keys()

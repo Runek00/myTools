@@ -12,7 +12,7 @@ def commitsFromInput():
         return
     commits(taskId)
 
-def commits(taskId):
+def commits(taskId: str):
     toClipboard(getCommits(taskId))
     
 def cFromCols():
@@ -27,7 +27,7 @@ def confFromCols():
     s = configureColumns(columns)
     toClipboard(s)
 
-def toClipboard(x):
+def toClipboard(x: str):
     global root
     root.withdraw()
     root.clipboard_clear()
